@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+ 
+void perm_sort(void *a, int n, size_t msize)
+{
+	char *p, *q, *tmp = malloc(msize);
+    int flag; 
+    
+	while (1) {
+		/* find largest k such that a[k - 1] < a[k] */
+		
+		p= (char *)a + msize * (n-1);
+		while((void*)p > a){
+			
+			q = p - msize;
+			flag = strcmp(*(const char *const *)q, *(const char *const *)p);
+			if (flag > 0)
+				break;
+			p = q;
+	    }
+ 
+		if ((void*)p <= a) break;
+ 
+		/* find largest l such that a[l] > a[k - 1] */
+		
+		p= (char *)a + msize * (n-1);
+		while(p > q){
+			flag = strcmp(*(const char *const *)q, *(const char *const *)p);
+			
+			if (flag > 0) break;
+			p-= msize;
+		}
+ 
+		//swap(p, q); /* swap a[k - 1], a[l] */
+		memcpy(tmp, p, msize);
+		memcpy(p, q, msize);
+		memcpy(q, tmp, msize);	
+		/* flip a[k] through a[end] */
+		q += msize;
+		
+		p= (char *)a + msize * (n-1);
+		while( q < p){
+			//swap(p, q);
+			memcpy(tmp, p, msize);
+		    memcpy(p, q, msize);
+		    memcpy(q, tmp, msize);	
+			q += msize;
+			p -= msize;
+		}
+	}
+	free(tmp);
+}
+ 
+
