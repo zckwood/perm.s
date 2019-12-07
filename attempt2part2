@@ -1,0 +1,22 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void perm_sort(void *, int , size_t ); 
+ 
+
+ 
+
+ 
+int main()
+{
+	int i;
+	const char *strs[] = { "spqr", "abc", "giant squid", "stuff", "def" };
+	/* perm_sort(strs, 5, sizeof(*strs), scmp);*/
+    perm_sort(strs, 5, 4); /* I know that string pointers are 4 bytes */
+    
+    
+	for (i = 0; i < 5; i++)
+		printf("%s\n", strs[i]);
+	return 0;
+}
